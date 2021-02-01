@@ -3,7 +3,7 @@ from io import BytesIO
 
 
 __all__ = ('__version__', 'Client')
-__version__ = '1.0'
+__version__ = '1.1'
 
 
 class Client:
@@ -13,7 +13,7 @@ class Client:
 
     Example:
     client = aiozaneapi.Client('Token Here') # Instantiate the Client.
-    image = await client.magik('Image URL Here') # This will return a BytesIO object.
+    image = await client.magic('Image URL Here') # This will return a BytesIO object.
     """
 
     def __init__(self, token: str) -> None:
@@ -24,8 +24,8 @@ class Client:
         self.session = aiohttp.ClientSession(headers=headers)
         self.base_url = 'https://zane.ip-bash.com/'
 
-    async def magik(self, url: str) -> BytesIO:
-        """Applies a magik filter to a given image."""
+    async def magic(self, url: str) -> BytesIO:
+        """Applies a magic filter to a given image."""
 
         params = {'url': url}
         url = f'{self.base_url}api/magic'

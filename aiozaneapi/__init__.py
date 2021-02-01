@@ -1,9 +1,10 @@
 import aiohttp
+import asyncio
 from io import BytesIO
 
 
 __all__ = ('__version__', 'Client')
-__version__ = '1.1'
+__version__ = '1.2'
 
 
 class Client:
@@ -18,18 +19,18 @@ class Client:
 
     def __init__(self, token: str) -> None:
         headers = {
-            'User-Agent': 'aiozaneapi v1.0',
+            'User-Agent': f'aiozaneapi v{__version__}',
             'Authorization': f'{token}'
         }
         self.session = aiohttp.ClientSession(headers=headers)
-        self.base_url = 'https://zane.ip-bash.com/'
+
+        self.base_url = 'https://zane.ip-bash.com'
 
     async def magic(self, url: str) -> BytesIO:
         """Applies a magic filter to a given image."""
 
         params = {'url': url}
-        url = f'{self.base_url}api/magic'
-        async with self.session.get(url, params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/magic', params=params) as resp:
             data = await resp.read()
         
         buffer = BytesIO(data)
@@ -39,8 +40,17 @@ class Client:
         """Applies a floor effect to a given image."""
 
         params = {'url': url}
-        url = f'{self.base_url}api/floor'
-        async with self.session.get(url, params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/floor', params=params) as resp:
+            data = await resp.read()
+        
+        buffer = BytesIO(data)
+        return buffer
+
+    async def deepfry(self, url: str) -> BytesIO:
+        """Applies a deepfry effect to a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/deepfry', params=params) as resp:
             data = await resp.read()
         
         buffer = BytesIO(data)
@@ -50,11 +60,21 @@ class Client:
         """Returns a braille version of a given image."""
 
         params = {'url': url}
-        url = f'{self.base_url}api/braille'
-        async with self.session.get(url, params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/braille', params=params) as resp:
             data = await resp.text()
 
         return data
+
+    async def colour_ascii(self, url: str) -> str:
+        """Returns a colour ascii version of a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/color_ascii', params=params) as resp:
+            data = await resp.text()
+
+        return data
+
+    color_ascii = colour_ascii
 
     async def close(self) -> None:
         """Closes the Client."""

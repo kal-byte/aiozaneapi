@@ -32,7 +32,7 @@ class Client:
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/magic', params=params) as resp:
             data = await resp.read()
-        
+
         buffer = BytesIO(data)
         return buffer
 
@@ -42,7 +42,7 @@ class Client:
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/floor', params=params) as resp:
             data = await resp.read()
-        
+
         buffer = BytesIO(data)
         return buffer
 
@@ -52,7 +52,7 @@ class Client:
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/deepfry', params=params) as resp:
             data = await resp.read()
-        
+
         buffer = BytesIO(data)
         return buffer
 
@@ -62,7 +62,7 @@ class Client:
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/dots', params=params) as resp:
             data = await resp.read()
-        
+
         buffer = BytesIO(data)
         return buffer
 
@@ -72,7 +72,7 @@ class Client:
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/threshold', params=params) as resp:
             data = await resp.read()
-        
+
         buffer = BytesIO(data)
         return buffer
 
@@ -82,7 +82,7 @@ class Client:
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/jpeg', params=params) as resp:
             data = await resp.read()
-        
+
         buffer = BytesIO(data)
         return buffer
 
@@ -92,7 +92,7 @@ class Client:
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/spread', params=params) as resp:
             data = await resp.read()
-        
+
         buffer = BytesIO(data)
         return buffer
 

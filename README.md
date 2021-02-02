@@ -3,5 +3,5 @@
 Example:
 ```py
 client = aiozaneapi.Client('Token Here') # Instantiate the Client.
-image = await client.magik('Image URL Here') # This will return a BytesIO object.
+image = await client.magic('Image URL Here') # This will return a BytesIO object.
 ```

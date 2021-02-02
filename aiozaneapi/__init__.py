@@ -67,7 +67,7 @@ class Client:
         return buffer
 
     async def threshold(self, url: str) -> BytesIO:
-        """Applies a thresolh effect to a given image."""
+        """Applies a thresold effect to a given image."""
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/threshold', params=params) as resp:

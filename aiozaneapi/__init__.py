@@ -10,7 +10,7 @@ __version__ = '1.3'
 class Client:
     """Client to gain functionality with the Zane API.
     You must pass in a token argument you can get this on the
-    Zane API site.
+    Zane API site. (https://zane.ip-bash.com/)
 
     Example:
     client = aiozaneapi.Client('Token Here') # Instantiate the Client.

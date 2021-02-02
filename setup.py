@@ -8,7 +8,7 @@ with open("requirements.txt") as f:
 
 setup(
     name='aiozaneapi',
-    version='1.2',
+    version='1.3',
     description='An async wrapper made in Python for Zane API.',
     long_description=long_description,
     url='http://github.com/kal-byte/aiozaneapi',

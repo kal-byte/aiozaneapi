@@ -4,7 +4,7 @@ from io import BytesIO
 
 
 __all__ = ('__version__', 'Client')
-__version__ = '1.2'
+__version__ = '1.3'
 
 
 class Client:
@@ -27,7 +27,7 @@ class Client:
         self.base_url = 'https://zane.ip-bash.com'
 
     async def magic(self, url: str) -> BytesIO:
-        """Applies a magic filter to a given image."""
+        """Applies a magic filter to a given image. Gif."""
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/magic', params=params) as resp:
@@ -37,7 +37,7 @@ class Client:
         return buffer
 
     async def floor(self, url: str) -> BytesIO:
-        """Applies a floor effect to a given image."""
+        """Applies a floor effect to a given image. Gif."""
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/floor', params=params) as resp:
@@ -51,6 +51,46 @@ class Client:
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/deepfry', params=params) as resp:
+            data = await resp.read()
+        
+        buffer = BytesIO(data)
+        return buffer
+
+    async def dots(self, url: str) -> BytesIO:
+        """Dotifies a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/dots', params=params) as resp:
+            data = await resp.read()
+        
+        buffer = BytesIO(data)
+        return buffer
+
+    async def threshold(self, url: str) -> BytesIO:
+        """Applies a thresolh effect to a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/threshold', params=params) as resp:
+            data = await resp.read()
+        
+        buffer = BytesIO(data)
+        return buffer
+
+    async def jpeg(self, url: str) -> BytesIO:
+        """Applies a jpeg effect to a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/jpeg', params=params) as resp:
+            data = await resp.read()
+        
+        buffer = BytesIO(data)
+        return buffer
+
+    async def spread(self, url: str) -> BytesIO:
+        """Applies a spread effect to a given image. Gif."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/spread', params=params) as resp:
             data = await resp.read()
         
         buffer = BytesIO(data)

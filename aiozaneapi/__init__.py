@@ -4,7 +4,7 @@ from io import BytesIO
 
 
 __all__ = ('__version__', 'Client')
-__version__ = '1.4'
+__version__ = '1.5'
 
 
 class GatewayError(Exception):
@@ -36,10 +36,13 @@ class Client:
 
         self.base_url = 'https://zane.ip-bash.com'
 
-    async def magic(self, url: str) -> BytesIO:
+    async def magic(self, url: str, magnitude: float = 0.6) -> BytesIO:
         """Applies a magic filter to a given image. Gif."""
 
-        params = {'url': url}
+        params = {
+            'url': url,
+            'magnitude': str(magnitude),
+        }
         async with self.session.get(f'{self.base_url}/api/magic', params=params) as resp:
             if resp.status == 502:
                 raise GatewayError()
@@ -96,21 +99,6 @@ class Client:
         buffer = BytesIO(data)
         return buffer
 
-    # async def threshold(self, url: str) -> BytesIO:
-    #     """Applies a threshold effect to a given image."""
-
-    #     params = {'url': url}
-    #     async with self.session.get(f'{self.base_url}/api/threshold', params=params) as resp:
-    #         if resp.status == 502:
-    #             raise GatewayError()
-    #         if resp.status == 403:
-    #             raise UnauthorizedError()
-
-    #         data = await resp.read()
-
-    #     buffer = BytesIO(data)
-    #     return buffer
-
     async def jpeg(self, url: str) -> BytesIO:
         """Applies a jpeg effect to a given image."""
 
@@ -141,6 +129,149 @@ class Client:
         buffer = BytesIO(data)
         return buffer
 
+    async def cube(self, url: str) -> BytesIO:
+        """Turns a given image into a cube."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/cube', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
+            data = await resp.read()
+
+        buffer = BytesIO(data)
+        return buffer
+
+    async def sort(self, url: str) -> BytesIO:
+        """Applies a sort effect to a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/sort', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
+            data = await resp.read()
+
+        buffer = BytesIO(data)
+        return buffer
+
+    async def palette(self, url: str) -> BytesIO:
+        """Gives a colour palette of a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/palette', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
+            data = await resp.read()
+
+        buffer = BytesIO(data)
+        return buffer
+
+    async def invert(self, url: str) -> BytesIO:
+        """Applies an invert effect to a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/invert', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
+            data = await resp.read()
+
+        buffer = BytesIO(data)
+        return buffer
+
+    async def posterize(self, url: str) -> BytesIO:
+        """Applies a posterize effect to a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/posterize', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
+            data = await resp.read()
+
+        buffer = BytesIO(data)
+        return buffer
+
+    async def grayscale(self, url: str) -> BytesIO:
+        """Applies a grayscale effect to a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/grayscale', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
+            data = await resp.read()
+
+        buffer = BytesIO(data)
+        return buffer
+
+    greyscale = grayscale
+
+    async def pixelate(self, url: str, scale: float = 0.3) -> BytesIO:
+        """Applies a pixelate effect to a given image."""
+
+        params = {
+            'url': url,
+            'scale': str(scale),
+        }
+        async with self.session.get(f'{self.base_url}/api/pixelate', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
+            data = await resp.read()
+
+        buffer = BytesIO(data)
+        return buffer
+
+    async def swirl(self, url: str, angle: int = 280) -> BytesIO:
+        """Applies a swirl effect to a given image. Gif."""
+
+        params = {
+            'url': url,
+            'angle': str(angle),
+        }
+        async with self.session.get(f'{self.base_url}/api/swirl', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
+            data = await resp.read()
+
+        buffer = BytesIO(data)
+        return buffer
+
+    async def sobel(self, url: str) -> BytesIO:
+        """Applies a sobel effect to a given image."""
+
+        params = {'url': url}
+        async with self.session.get(f'{self.base_url}/api/sobel', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
+            data = await resp.read()
+
+        buffer = BytesIO(data)
+        return buffer
+
     async def braille(self, url: str) -> str:
         """Returns a braille version of a given image."""
 
@@ -154,17 +285,6 @@ class Client:
             data = await resp.text()
 
         return data
-
-    # async def colour_ascii(self, url: str) -> str:
-    #     """Returns a colour ascii version of a given image."""
-
-    #     params = {'url': url}
-    #     async with self.session.get(f'{self.base_url}/api/color_ascii', params=params) as resp:
-    #         data = await resp.text()
-
-    #     return data
-
-    # color_ascii = colour_ascii
 
     async def close(self) -> None:
         """Closes the Client."""

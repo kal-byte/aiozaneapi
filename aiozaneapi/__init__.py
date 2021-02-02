@@ -4,7 +4,17 @@ from io import BytesIO
 
 
 __all__ = ('__version__', 'Client')
-__version__ = '1.3'
+__version__ = '1.4'
+
+
+class GatewayError(Exception):
+    def __init__(self, message: str = 'API Returned a 502 status.'):
+        super(GatewayError, self).__init__(message)
+
+
+class UnauthorizedError(Exception):
+    def __init__(self, message: str = 'API Returned a 403 status.'):
+        super(UnauthorizedError, self).__init__(message)
 
 
 class Client:
@@ -31,6 +41,11 @@ class Client:
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/magic', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
             data = await resp.read()
 
         buffer = BytesIO(data)
@@ -41,6 +56,11 @@ class Client:
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/floor', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
             data = await resp.read()
 
         buffer = BytesIO(data)
@@ -51,6 +71,11 @@ class Client:
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/deepfry', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
             data = await resp.read()
 
         buffer = BytesIO(data)
@@ -61,26 +86,41 @@ class Client:
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/dots', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
             data = await resp.read()
 
         buffer = BytesIO(data)
         return buffer
 
-    async def threshold(self, url: str) -> BytesIO:
-        """Applies a threshold effect to a given image."""
+    # async def threshold(self, url: str) -> BytesIO:
+    #     """Applies a threshold effect to a given image."""
 
-        params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/threshold', params=params) as resp:
-            data = await resp.read()
+    #     params = {'url': url}
+    #     async with self.session.get(f'{self.base_url}/api/threshold', params=params) as resp:
+    #         if resp.status == 502:
+    #             raise GatewayError()
+    #         if resp.status == 403:
+    #             raise UnauthorizedError()
 
-        buffer = BytesIO(data)
-        return buffer
+    #         data = await resp.read()
+
+    #     buffer = BytesIO(data)
+    #     return buffer
 
     async def jpeg(self, url: str) -> BytesIO:
         """Applies a jpeg effect to a given image."""
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/jpeg', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
             data = await resp.read()
 
         buffer = BytesIO(data)
@@ -91,6 +131,11 @@ class Client:
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/spread', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
             data = await resp.read()
 
         buffer = BytesIO(data)
@@ -101,6 +146,11 @@ class Client:
 
         params = {'url': url}
         async with self.session.get(f'{self.base_url}/api/braille', params=params) as resp:
+            if resp.status == 502:
+                raise GatewayError()
+            if resp.status == 403:
+                raise UnauthorizedError()
+
             data = await resp.text()
 
         return data

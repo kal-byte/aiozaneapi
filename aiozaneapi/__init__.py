@@ -105,16 +105,16 @@ class Client:
 
         return data
 
-    async def colour_ascii(self, url: str) -> str:
-        """Returns a colour ascii version of a given image."""
+    # async def colour_ascii(self, url: str) -> str:
+    #     """Returns a colour ascii version of a given image."""
 
-        params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/color_ascii', params=params) as resp:
-            data = await resp.text()
+    #     params = {'url': url}
+    #     async with self.session.get(f'{self.base_url}/api/color_ascii', params=params) as resp:
+    #         data = await resp.text()
 
-        return data
+    #     return data
 
-    color_ascii = colour_ascii
+    # color_ascii = colour_ascii
 
     async def close(self) -> None:
         """Closes the Client."""

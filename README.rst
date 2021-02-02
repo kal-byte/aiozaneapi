@@ -3,7 +3,7 @@ aiozaneapi - An async wrapper made in Python for Zane API.
 Made for Python 3.6+.
 
 Example:
-.. code-block:: py
+.. code:: py
 
     import aiozaneapi # Import aiozaneapi
 

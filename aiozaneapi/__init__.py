@@ -32,7 +32,10 @@ class Client:
             'User-Agent': f'aiozaneapi v{__version__}',
             'Authorization': f'{token}'
         }
-        self.session = aiohttp.ClientSession(headers=headers)
+        self.session = aiohttp.ClientSession(
+                headers=headers,
+                timeout=aiohttp.ClientTimeout(total=60.0)
+        )
 
         self.base_url = 'https://zane.ip-bash.com'
 

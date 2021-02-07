@@ -20,7 +20,7 @@ class UnauthorizedError(Exception):
 class Client:
     """Client to gain functionality with the Zane API.
     You must pass in a token argument you can get this on the
-    Zane API site. (https://zane.ip-bash.com/)
+    Zane API site. (https://zaneapi.com/)
 
     Example:
     client = aiozaneapi.Client('Token Here') # Instantiate the Client.
@@ -37,7 +37,7 @@ class Client:
                 timeout=aiohttp.ClientTimeout(total=60.0)
         )
 
-        self.base_url = 'https://zane.ip-bash.com'
+        self.base_url = 'https://zaneapi.com/'
 
     async def magic(self, url: str, magnitude: float = 0.6) -> BytesIO:
         """Applies a magic filter to a given image. Gif."""

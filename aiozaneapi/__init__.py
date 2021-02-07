@@ -20,7 +20,7 @@ class UnauthorizedError(Exception):
 class Client:
     """Client to gain functionality with the Zane API.
     You must pass in a token argument you can get this on the
-    Zane API site. (https://zane.ip-bash.com/)
+    Zane API site. (https://zaneapi.com/)
 
     Example:
     client = aiozaneapi.Client('Token Here') # Instantiate the Client.

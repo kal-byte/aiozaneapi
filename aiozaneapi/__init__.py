@@ -37,7 +37,7 @@ class Client:
                 timeout=aiohttp.ClientTimeout(total=60.0)
         )
 
-        self.base_url = 'https://zane.ip-bash.com'
+        self.base_url = 'https://zaneapi.com/'
 
     async def magic(self, url: str, magnitude: float = 0.6) -> BytesIO:
         """Applies a magic filter to a given image. Gif."""

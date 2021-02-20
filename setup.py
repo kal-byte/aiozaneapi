@@ -15,6 +15,7 @@ setup(
     author='kal-byte',
     license='MIT',
     packages=['aiozaneapi'],
+    install_requires=['aiohttp'],
     requirements=requirements,
     zip_safe=False,
 )

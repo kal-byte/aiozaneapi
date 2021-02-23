@@ -27,14 +27,16 @@ class Client:
     image = await client.magic('Image URL Here') # This will return a BytesIO object.
     """
 
-    def __init__(self, token: str) -> None:
-        headers = {
+    def __init__(self, token: str, *, session: aiohttp.ClientSession=None, loop: asyncio.AbstractEventLoop=None) -> None:
+        self.headers = {
             'User-Agent': f'aiozaneapi v{__version__}',
             'Authorization': f'{token}'
         }
-        self.session = aiohttp.ClientSession(
-                headers=headers,
-                timeout=aiohttp.ClientTimeout(total=60.0)
+        self.timeout = aiohttp.ClientTimeout(total=60.0)
+        self.session = session or aiohttp.ClientSession(
+                headers=self.headers,
+                timeout=self.timeout,
+                loop=loop or asyncio.get_event_loop()
         )
 
         self.base_url = 'https://zaneapi.com/'
@@ -46,7 +48,7 @@ class Client:
             'url': url,
             'magnitude': str(magnitude),
         }
-        async with self.session.get(f'{self.base_url}/api/magic', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/magic', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -61,7 +63,7 @@ class Client:
         """Applies a floor effect to a given image. Gif."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/floor', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/floor', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -76,7 +78,7 @@ class Client:
         """Applies a deepfry effect to a given image."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/deepfry', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/deepfry', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -91,7 +93,7 @@ class Client:
         """Dotifies a given image."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/dots', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/dots', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -106,7 +108,7 @@ class Client:
         """Applies a jpeg effect to a given image."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/jpeg', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/jpeg', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -121,7 +123,7 @@ class Client:
         """Applies a spread effect to a given image. Gif."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/spread', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/spread', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -136,7 +138,7 @@ class Client:
         """Turns a given image into a cube."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/cube', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/cube', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -151,7 +153,7 @@ class Client:
         """Applies a sort effect to a given image."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/sort', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/sort', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -166,7 +168,7 @@ class Client:
         """Gives a colour palette of a given image."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/palette', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/palette', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -181,7 +183,7 @@ class Client:
         """Applies an invert effect to a given image."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/invert', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/invert', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -196,7 +198,7 @@ class Client:
         """Applies a posterize effect to a given image."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/posterize', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/posterize', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -211,7 +213,7 @@ class Client:
         """Applies a grayscale effect to a given image."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/grayscale', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/grayscale', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -231,7 +233,7 @@ class Client:
             'url': url,
             'scale': str(scale),
         }
-        async with self.session.get(f'{self.base_url}/api/pixelate', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/pixelate', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -249,7 +251,7 @@ class Client:
             'url': url,
             'angle': str(angle),
         }
-        async with self.session.get(f'{self.base_url}/api/swirl', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/swirl', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -264,7 +266,7 @@ class Client:
         """Applies a sobel effect to a given image."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/sobel', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/sobel', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -279,7 +281,7 @@ class Client:
         """Returns a braille version of a given image."""
 
         params = {'url': url}
-        async with self.session.get(f'{self.base_url}/api/braille', params=params) as resp:
+        async with self.session.get(f'{self.base_url}/api/braille', headers=self.headers, params=params, timeout=self.timeout) as resp:
             if resp.status == 502:
                 raise GatewayError()
             if resp.status == 403:
@@ -291,5 +293,5 @@ class Client:
 
     async def close(self) -> None:
         """Closes the Client."""
-
-        return await self.session.close()
+        if not self.session.closed:
+            return await self.session.close()
